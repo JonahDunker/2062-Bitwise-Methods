@@ -5,6 +5,13 @@ public class BitwiseMethods {
   public static void main(String[] args) throws Exception {
     Scanner in = new Scanner(System.in);
     System.out.println(binarySum(Integer.parseInt(in.nextLine()), Integer.parseInt(in.nextLine())));
+    /*int limit = Integer.parseInt(in.nextLine());
+    for(int i = 0; i < limit; i++) {
+      int sum = binarySum(i, i+1);
+      if(sum != (i + (i+1))) {
+        System.out.println(sum+" does not equal "+i+" "+(i+1));
+      }
+    }*/
   }
 
   public static int binaryRepresentations1(int num) {
@@ -40,3 +47,12 @@ public class BitwiseMethods {
     return isOdd;
   }
 }
+
+// 0011 3
+// 0101 5
+
+// 0001 1
+// 0010 2 (3)
+// 0100 4 (5)
+
+// 0010
