@@ -42,9 +42,7 @@ public class BitwiseMethods {
   }
 
   public static boolean isOddBinary(int num) {
-    int odd = num & 1;
-    boolean isOdd = odd == 1;
-    return isOdd;
+    return (num & 1) == 1;
   }
 }
 
