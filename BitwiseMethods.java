@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class BitwiseMethods {
   public static void main(String[] args) throws Exception {
@@ -16,13 +17,20 @@ public class BitwiseMethods {
   }
 
   public static int binarySum(int num1, int num2) {
-    int sum = 0;
-    while(num1 > 0) {
-      sum = num1 | num2;
-      num1 <<= 1;
-      num2 <<= 1;
-      //System.out.println(num1);
+    int sum = num1 ^ num2;
+    num1 -= sum & num1;
+    num2 -= sum & num2;
+    int shared = num1 & num2;
+    num1 -= shared;
+    num2 -= shared;
+    shared <<= 1;
+    while((sum & shared) != 0) {
+      sum = sum ^ shared;
+      shared -= sum & shared;
+      shared <<= 1;
     }
+    sum = sum | shared;
+
     return sum;
   }
 
