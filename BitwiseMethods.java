@@ -4,14 +4,10 @@ import java.util.ArrayList;
 public class BitwiseMethods {
   public static void main(String[] args) throws Exception {
     Scanner in = new Scanner(System.in);
-    System.out.println(binarySum(Integer.parseInt(in.nextLine()), Integer.parseInt(in.nextLine())));
-    /*int limit = Integer.parseInt(in.nextLine());
-    for(int i = 0; i < limit; i++) {
-      int sum = binarySum(i, i+1);
-      if(sum != (i + (i+1))) {
-        System.out.println(sum+" does not equal "+i+" "+(i+1));
-      }
-    }*/
+    int[] arr = rgbaValues(Integer.parseInt(in.nextLine()));
+    for(int i = 0; i < 4; i++) {
+      System.out.println(arr[i]);
+    }
   }
 
   public static int binaryRepresentations1(int num) {
@@ -21,6 +17,38 @@ public class BitwiseMethods {
       num >>= 1;
     }
     return count;
+  }
+
+  public static int[] rgbaValues(int num) {
+    // Take in int
+    // compare num to an int which = num >>= 1
+    // if both 0, give num back the starting # of bits and make arr[i] = starting num - new num
+    // if not both 0, num >>= 1
+    int[] arr = new int[4];
+    int original = num;
+    for(int i = 0; i < 4; i++) {
+      int bitsDeleted  = 0;
+      while((num & 1) == 0) {
+        num >>= 1;
+        bitsDeleted++;
+      }
+      boolean bool = true;
+      while(bool) {
+        int temp = num;
+        temp >>= 1;
+        if((num & 1) == 0 && (temp & 1) == 0) {
+          num <<= bitsDeleted;
+          arr[i] = original - num;
+          bool = false;
+          original >>= bitsDeleted+1;
+          num >>= bitsDeleted+1;
+        } else {
+          num >>= 1;
+          bitsDeleted++;
+        }
+      }
+    }
+    return arr;
   }
 
   public static int binarySum(int num1, int num2) {
@@ -45,12 +73,3 @@ public class BitwiseMethods {
     return (num & 1) == 1;
   }
 }
-
-// 0011 3
-// 0101 5
-
-// 0001 1
-// 0010 2 (3)
-// 0100 4 (5)
-
-// 0010
